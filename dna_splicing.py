@@ -1,4 +1,3 @@
-#  Code challenge of Sai Peri
 #  The task is completed in Python using a Neural Network with Keras library and Tensorflow for backend 
 
 import random
@@ -44,15 +43,15 @@ random.shuffle(zipped)
 labels, feats = zip(*zipped)
 
 # Divding the dataset into training and test data in the ration of 80:20 
-# I chose this ratio as the availability of data is limited 
+# this ratio as the availability of data is limited 
 labels_tr = np.array(labels[0:2552])   # training labels
 feats_tr = np.array(feats[0:2552])    # training features
 
 labels_test = np.array(labels[2552:])  # test labels
 feats_test = np.array(feats[2552:])    # test features 
 
-# I chose L2 regularization parameter to be 0.0001 for my Neural Network approach
-# I chose a simple neural network with one input layer, one hidden layer and the output layer
+# L2 regularization parameter to be 0.0001 for my Neural Network approach
+# a simple neural network with one input layer, one hidden layer and the output layer
 # The model is chosen to be sequential and the input layer has 32 units (chosen after trail and error method to maximize training efficiency)
 # The dropout factor has been chosen after trial and error method to maximize training efficiency
 l2_reg = l2(0.0001)
@@ -66,11 +65,11 @@ model.add(Dense(32, activation='relu', activity_regularizer=l2_reg))
 
 model.add(Dense(3, activation='sigmoid'))      # The output unit
 
-# I used the RMSprop optimizer for my adaptive learning rate 
+# RMSprop optimizer for my adaptive learning rate 
 opt = rmsprop(lr=0.0001)
 model.compile(loss='binary_crossentropy', optimizer=opt, metrics=['accuracy'])
 
-# I used 32 as my batch size so that each batch has 10 elements and epochs as 50 
+# 32 as my batch size so that each batch has 10 elements and epochs as 50 
 # for optimum fitting of the curve  
 model.fit(feats_tr, labels_tr, epochs=50, batch_size=32)
 # the training efficiency is about 85% 
@@ -89,7 +88,7 @@ for outs in out_lab:
 
 target_labels = ["{0} {1} {2}".format(x[0], x[1], x[2]) for x in labels_test]
 
-# Since the output is of the form a vector of 0 and 1. I used the sum as a criteria to calculate the efficiency of the model
+# Since the output is of the form a vector of 0 and 1. The sum as a criteria to calculate the efficiency of the model
 sum = 0
 for idx, lab in enumerate(out_labels):
     if lab == target_labels[idx]:
@@ -98,6 +97,3 @@ for idx, lab in enumerate(out_labels):
 print(sum/len(out_labels))
 
 # The test data gives the efficiency of the model as 29.3% 
-# I would have loved to play around more with the data but given my time constriants ( I am a graduate student currently in school)
-# I could not spend more time with the data. 
-# I look forward to your response 
